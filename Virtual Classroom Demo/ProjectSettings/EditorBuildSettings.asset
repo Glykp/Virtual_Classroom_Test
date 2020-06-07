@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ClassRoom.unity
+    path: Assets/Scenes/ClassRoom-Backup.unity
     guid: a104373d51778514ba87c2dc34b81866
   m_configObjects: {}
