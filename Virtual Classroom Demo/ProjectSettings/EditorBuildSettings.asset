@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Scenario 5.unity
+    guid: 2988cfaef68ef4845b52b9a487ff1572
+  - enabled: 1
+    path: Assets/Scenes/Scenario 4.unity
+    guid: dbfa14472dd9c2c4a99e8b2127bf2611
+  - enabled: 1
     path: Assets/Scenes/ClassRoom-Backup.unity
     guid: a104373d51778514ba87c2dc34b81866
   m_configObjects: {}
