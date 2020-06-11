@@ -34,6 +34,9 @@ public class ThinkBubble : MonoBehaviour
         {
             if (isChosed == false)
                 StartCoroutine(Choosingcoroutine());
+            else if(isChosed == true)
+                StartCoroutine(StopChoosingCoroutine());
+
         }
     }
 
@@ -56,5 +59,13 @@ public class ThinkBubble : MonoBehaviour
         else if (Rand <= 0.5f)
             Bubble.sprite = B;
         Bubble.CrossFadeAlpha(.85f, 2.0f, false);
+    }
+
+    IEnumerator StopChoosingCoroutine()
+    {
+        isChosed = false;
+        yield return new WaitForSeconds(1f);
+
+        Bubble.CrossFadeAlpha(.01f, 2.0f, false);
     }
 }
