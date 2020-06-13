@@ -4,54 +4,41 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using DG.Tweening;
 
 namespace Invector.vCharacterController
 {
     public class UIManager : MonoBehaviour
     {
+
+        public Texture2D CursorArrow;
+
         public CinemachineFreeLook CVcam;
         public Animator anim;
-        //Panels: Friends, Chats, Badges, Groups, Play as Teacher, Vote for ...(Yes/No, NewClassroom...), Quest, Change AVATAR, Course Materials, Emote, Typing/Speaking indicator, Environment Interaction
-        //Panel Trees: 
-        //(ClassRoom)InfoPanel: the class discription, CoursePanel, Play as Teacher
-        //SocialPanel: Friends, Chats, Group
-        //MyPanel: my info, Badges, AVATAR, Quest, 
-        //VotePanel
-        //Emote
-        //Exit ClassRoom
-        //Teacher Mode: Student Statistic, Call Vote, Roll Call, Draw one, Course Slides..., Class Recording,
 
-        //Students only
 
         public GameObject MenuPanel;
-        
-        public GameObject PersonalPanel;
-        public GameObject SocialPanel;
-        /*
-        public GameObject FriendsPanel;
-        public GameObject ChatsPanel;
-        public GameObject BadgesPanel;
-        public GameObject AVATARPanel;
-        public GameObject GroupPanel;
-        public GameObject VotePanel;
-        public GameObject QuestPanel;
-        public GameObject CoursePanel;
-        public GameObject EmotePanel;
+        public GameObject BarPanel;
 
-        //Teacher only
-        public GameObject StudentsPanel;
-        public GameObject IntercationPanel;
-        public GameObject CoursePanel_Teacher;
-        */
+        public GameObject ActionPanel;
+
+
+
 
 
         public vThirdPersonInput moveInput;
         public bool isInMenu;
+        public bool isInBar = false;
 
 
         // Start is called before the first frame update
         void Start()
         {
+            Cursor.SetCursor(CursorArrow, Vector2.zero, CursorMode.ForceSoftware);
+
+            ActionPanel.SetActive(false);
+            MenuPanel.SetActive(false);
+            BarPanel.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -60,7 +47,7 @@ namespace Invector.vCharacterController
         void Update()
         {
             PaueGame();
-
+            PauseBar();
 
         }
 
@@ -84,7 +71,10 @@ namespace Invector.vCharacterController
                 }
                 else if (isInMenu == true)
                 {
-
+                    if(isInBar)
+                    {
+                        hideBar();
+                    }
                      hideMenu();
                     isInMenu = false;
                      // source.clip = TagSFX;
@@ -92,6 +82,43 @@ namespace Invector.vCharacterController
                 
                 }
             }
+        }
+
+        public void PauseBar()
+        {
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                if(isInMenu == true)
+                {
+                    if (isInBar == false)
+                    {
+                        showBar();
+                        isInBar = true;
+                        //source.clip = TagSFX;
+                        //source.Play();
+                    }
+                    else if (isInBar == true)
+                    {
+
+                        hideBar();
+                        isInBar = false;
+                        // source.clip = TagSFX;
+                        // source.Play();
+
+                    }
+                }
+            }
+        
+        }
+
+        public void showBar()
+        {
+            BarPanel.SetActive(true);
+        }
+            
+        public void hideBar()
+        {
+            BarPanel.SetActive(false);
         }
 
         public void showMenu()
@@ -127,32 +154,28 @@ namespace Invector.vCharacterController
             anim.ResetTrigger("GroundDistance");
         }
 
-        public void onOpenSocialWindow()
+        public void onOpenActionPnl()
         {
-            if (SocialPanel.activeInHierarchy)
+            if (ActionPanel.activeInHierarchy)
             {
-                SocialPanel.SetActive(false);
+                ActionPanel.SetActive(false);
+                //StartCoroutine(ActionPnlSlideCoroutine());
+
             }
             else
             {
-                SocialPanel.SetActive(true);
+                ActionPanel.SetActive(true);
+               // iTween.MoveBy(ActionPanel, iTween.Hash("x", -237, "time", .3f, "easeType", "easeInOutSine", "loopType", "none"));
 
             }
 
         }
 
-        public void onOpenPersonalWindow()
+        IEnumerator ActionPnlSlideCoroutine()
         {
-            if (PersonalPanel.activeInHierarchy)
-            {
-                PersonalPanel.SetActive(false);
-            }
-            else
-            {
-                PersonalPanel.SetActive(true);
-
-            }
-
+            //iTween.MoveBy(ActionPanel, iTween.Hash("x", 237, "time", .3f, "easeType", "easeInOutSine", "loopType", "none"));
+            yield return new WaitForSeconds(.5f);
+            ActionPanel.SetActive(false);
         }
 
 
